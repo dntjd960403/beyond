@@ -1,0 +1,19 @@
+.wrap {
+  margin: auto;
+  width: 400px;
+  height: 700px;
+  text-align: center;
+  background-image: url("./images/login.png");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.head {
+  margin-top: 5%;
+  text-align: center;
+}
+
+.air {
+  width: 100px;
+  height: 100px;
+}

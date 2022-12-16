@@ -1,0 +1,78 @@
+.wrap {
+  width: 1000px;
+  height: 750px;
+  border: 1px solid #000;
+  margin: auto;
+  background-color: blanchedalmond;
+}
+
+.Lwrap {
+  width: 73%;
+  height: 750px;
+  background-color: bisque;
+}
+.Rwrap {
+  position: relative;
+  left: 73%;
+  bottom: 100%;
+  width: 27%;
+  height: 750px;
+  /* background-color: aquamarine; */
+}
+
+.main_box {
+  position: relative;
+  top: 10px;
+  width: 700px;
+  height: 500px;
+  border: 1px solid #000;
+  overflow: auto;
+  margin-left: 20px;
+}
+
+.chat_box {
+  position: relative;
+  top: 15px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.btn {
+  position: relative;
+  top: 15px;
+}
+.get_box {
+  position: relative;
+  top: 20px;
+  width: 700px;
+  height: 170px;
+  margin-left: 20px;
+  margin-top: 10px;
+  overflow: auto;
+  border: 1px solid #000;
+}
+
+.profile {
+  width: 200px;
+  height: 175px;
+  margin-top: 10px;
+  margin-left: 25px;
+  border: 1px solid #000;
+  /* background-color: black; */
+}
+
+.status {
+  width: 250px;
+  height: 335px;
+  margin-top: 10px;
+  border: 1px solid #000;
+  /* background-color: darkolivegreen; */
+}
+
+.chatting {
+  width: 250px;
+  height: 190px;
+  margin-top: 10px;
+  border: 1px solid #000;
+  /* background-color: darkkhaki; */
+}

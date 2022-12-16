@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <meta charset="utf-8">
+  <title>채팅</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <link href="/css/main.css" type="text/css" rel="stylesheet">
+
+  <script>
+  </script>
+</head>
+
+<body>
+  <div>
+
+
+    <div class="wrap">
+      <div class="Lwrap">
+
+        <div class="main_box" id="chattingMom">
+          <div id="story"></div>
+        </div>
+
+        <div>
+          <input class="chat_box" id=" text" placeholder="메세지를 입력해주세요" onkeyup="if(window.event.keyCode==13){send()} ">
+          <button class="btn" id="sendBtn" onclick="send()">전송</button>
+        </div>
+
+        <div class="get_box">
+          <div id="get"></div>
+        </div>
+
+      </div>
+
+      <div class="Rwrap">
+        <div class="profile">
+
+        </div>
+
+        <div class="status">
+
+        </div>
+
+        <div class="chatting">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</body>
+<script>
+
+</script>
+
+</html>
