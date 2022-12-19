@@ -23,6 +23,7 @@ function login() {
     },
     success: function (data) {
       localStorage.setItem("Authorization", data.accessToken);
+      localStorage.setItem("userId", id.value);
       alert(data.message);
       return (location.href = "/main");
     },

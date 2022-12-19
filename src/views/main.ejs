@@ -5,27 +5,24 @@
 <head>
   <meta charset="utf-8">
   <title>채팅</title>
-  <script src="/socket.io/socket.io.js"></script>
-  <link href="/css/main.css" type="text/css" rel="stylesheet">
-
-  <script>
-  </script>
 </head>
+<link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
 
-<body>
+<body bgcolor="darkgray">
   <div>
-
-
+    <div class="header">
+    </div>
     <div class="wrap">
       <div class="Lwrap">
 
-        <div class="main_box" id="chattingMom">
+        <div class="main_box" id="main_box">
           <div id="story"></div>
         </div>
 
         <div>
-          <input class="chat_box" id=" text" placeholder="메세지를 입력해주세요" onkeyup="if(window.event.keyCode==13){send()} ">
+          <input class="chat_box" id="text" placeholder="메세지를 입력해주세요" onkeyup="if(window.event.keyCode==13){send()} ">
           <button class="btn" id="sendBtn" onclick="send()">전송</button>
+          <button class="logoutBtn" onclick="logout()">로그 아웃</button>
         </div>
 
         <div class="get_box">
@@ -43,14 +40,15 @@
 
         </div>
 
-        <div class="chatting">
-
+        <div class="chatting" id="chatting">
+          <div id="chattingList"></div>
         </div>
       </div>
     </div>
-
   </div>
 
+  <script src="/socket.io/socket.io.js"></script>
+  <link href="/css/main.css" type="text/css" rel="stylesheet">
   <script src="/js/main.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </body>
