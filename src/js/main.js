@@ -1,49 +1,59 @@
 // 위의 socket.io.js에서 뽑아 쓴다.
-const socket = io.connect("http://localhost:3000", {
-  // ws:// 를 안쓰고 http를 쓴다
-  // path: '/socket.io', // 서버 path와 일치시켜준다
-  //    transports: ['websocket']
-});
-let count = 0;
+const socket = io();
+let objDiv = document.getElementById("main_box");
+let objDivChat = document.getElementById("chatting");
+
 socket.on("connect", () => {
-  console.log("커넥트");
-  socket.on("a", (data) => {
-    $("#story").append(data.msg);
+  const userId = localStorage.getItem("userId");
+  socket.emit("user", userId);
+
+  socket.on("connectUser", (connectUser) => {
+    $("#chattingList").append(`${connectUser.user} 접속!<br>`);
+    objDivChat.scrollTop = objDivChat.scrollHeight;
   });
-  $("#RoomName").val("main");
-  $("#chatting").append(data.msg);
-  socket.on("newUser", (data) => {
-    $("#chatting").append(data.msg);
-  });
-  socket.on("userName", (data) => {
-    $("#name").val(data);
-  });
-  socket.on("newMessage", (data) => {
-    $("#chatting").append(`${data.name} : ${data.msg}<br>`);
-    let objDiv = document.getElementById("chattingMom");
+
+  socket.on("start", (data) => {
+    // $("#story *").remove();
+    $("#story").append(`${data.msg}<br><br>`);
+
+    // 뉴비일 때
+    if (data.code === "newUser") {
+      localStorage.setItem("stage", "nickname");
+      socket.on("nickname", (nickname) => {
+        localStorage.setItem("stage", "checkNickname");
+        localStorage.setItem("nickname", nickname.msg);
+        $("#story").append(`신입 열쇠 수리공: ${nickname.msg}<br><br>`);
+        $("#story").append(`닉네임이 ${nickname.msg}이(가) 맞습니까?<br>1.네<br>2.아니오<br><br>`);
+        objDiv.scrollTop = objDiv.scrollHeight;
+      });
+      socket.on("checkNickname", (checkNickname) => {
+        if (checkNickname.msg === "1" || checkNickname.msg === "네") {
+          $("#story").append(`그래요 ${checkNickname.nickname} 반가워요<br><br>`);
+          localStorage.setItem("stage", "닉네임 다음");
+        } else if (checkNickname.msg === "2" || checkNickname.msg === "아니오") {
+          $("#story").append(`그럼 뭐죠??<br><br>`);
+          localStorage.setItem("stage", "nickname");
+        } else $("#story").append(`??? 똑바로 대답해 시발럼아<br>`);
+        objDiv.scrollTop = objDiv.scrollHeight;
+      });
+    }
     objDiv.scrollTop = objDiv.scrollHeight;
   });
 });
 
 function send() {
-  let room = document.getElementById("RoomName").value;
-  let name = document.getElementById("name").value;
-  let text = document.getElementById("text").value;
-  let data = { room, name, text };
-  if (text === "") return;
-  socket.emit("newMessage", data);
+  // let name = document.getElementById("name").value;
+  let msg = document.getElementById("text").value;
+  let stage = localStorage.getItem("stage");
+  let nickname = localStorage.getItem("nickname");
+  let userId = localStorage.getItem("userId");
+  let data = { msg, stage, nickname, userId };
+  if (msg === "") return;
+  socket.emit("msg", data);
   $("#text").val("");
 }
-function enter() {
-  let data = $("#inputRoomName").val();
-  let room = $("#RoomName").val();
-  if ($("#RoomName").val() === data || $("#inputRoomName").val("") == data) {
-    $("#inputRoomName").val("");
-    return;
-  }
-  socket.emit("join", { data: data, room: room });
-  $("#RoomName").val(data);
-  $("#chatting").append("방" + data + "입장\n");
-  $("#rooms").append(`<button onclick="enter()">${data}</button><br>`);
-  $("#inputRoomName").val("");
-}
+
+const logout = () => {
+  localStorage.clear();
+  location.href = "/";
+};
