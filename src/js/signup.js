@@ -8,20 +8,16 @@ function signup() {
   else if (password.value === "" || password.value.length < 3)
     alert("비밀번호는 3글자 이상 적어라");
   else
-    $.ajax({
-      url: "/users/signup",
-      type: "POST",
-      data: {
+    axios
+      .post("/users/signup", {
         userId: id.value,
         password: password.value,
-      },
-      success: function (data) {
-        console.log(data);
-        alert("회원가입이 완료되었습니다");
+      })
+      .then(function (result) {
+        alert(result.data.message);
         return (location.href = "/");
-      },
-      error: function (data) {
-        return alert(data.responseJSON.errorMsg);
-      },
-    });
+      })
+      .catch(function (error) {
+        alert(error.response.data.errorMsg);
+      });
 }

@@ -1,3 +1,17 @@
+// const AT = localStorage.getItem("Authorization");
+// axios
+//   .get("/main", {
+//     headers: {
+//       Authorization: AT,
+//     },
+//   })
+//   .then(function (result) {
+//     console.log(result);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+
 // 위의 socket.io.js에서 뽑아 쓴다.
 const socket = io();
 let objDiv = document.getElementById("main_box");
@@ -6,6 +20,20 @@ let objDivChat = document.getElementById("chatting");
 socket.on("connect", () => {
   const userId = localStorage.getItem("userId");
   socket.emit("user", userId);
+
+  socket.on("userInfo", (userInfo) => {
+    if (!userInfo.nickname) userInfo.nickname = "뉴비";
+    if (!userInfo.job) userInfo.job = "무직";
+    $("#nickname").text(userInfo.nickname);
+    $("#job").text(userInfo.job);
+    $("#level").text(userInfo.level);
+    $("#exp").text(userInfo.exp);
+    $("#power").text(userInfo.power);
+    $("#defense").text(userInfo.defense);
+    $("#HP").text(userInfo.HP);
+    $("#MP").text(userInfo.MP);
+    $("#money").text(userInfo.money);
+  });
 
   socket.on("connectUser", (connectUser) => {
     $("#chattingList").append(`${connectUser.user} 접속!<br>`);
@@ -29,6 +57,7 @@ socket.on("connect", () => {
       socket.on("checkNickname", (checkNickname) => {
         if (checkNickname.msg === "1" || checkNickname.msg === "네") {
           $("#story").append(`그래요 ${checkNickname.nickname} 반가워요<br><br>`);
+          $("#nickname").text(checkNickname.nickname);
           localStorage.setItem("stage", "닉네임 다음");
         } else if (checkNickname.msg === "2" || checkNickname.msg === "아니오") {
           $("#story").append(`그럼 뭐죠??<br><br>`);
