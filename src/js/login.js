@@ -7,28 +7,24 @@ const id = document.getElementById("id"),
 loginButton.addEventListener("click", login);
 
 const checkUser = localStorage.getItem("Authorization");
-console.log(checkUser);
 if (checkUser) {
   alert("이미 로그인 하셨습니다.");
   location.href = "/main";
 }
-
 function login() {
-  $.ajax({
-    url: "/users/login",
-    type: "POST",
-    data: {
+  axios
+    .post("/users/login", {
       userId: id.value,
       password: password.value,
-    },
-    success: function (data) {
-      localStorage.setItem("Authorization", data.accessToken);
+    })
+    .then(function (result) {
+      localStorage.setItem("Authorization", result.data.accessToken);
       localStorage.setItem("userId", id.value);
-      alert(data.message);
+      alert(result.data.message);
       return (location.href = "/main");
-    },
-    error: function (data) {
-      return alert(data.responseJSON.errorMsg);
-    },
-  });
+    })
+
+    .catch(function (error) {
+      alert(error.response.data.errorMsg);
+    });
 }

@@ -1,6 +1,7 @@
 const socketIo = require("socket.io");
 const { Users } = require("./models");
 const redis = require("redis");
+const auth = require("./middlewares/auth");
 
 const redisClient = redis.createClient({ legacyMode: true });
 redisClient.on("connect", () => {
@@ -18,6 +19,17 @@ module.exports = (server) => {
     socket.on("user", async (userId) => {
       const user = await Users.findOne({ where: { userId } });
       console.log(user.userId + "접속");
+      socket.emit("userInfo", {
+        nickname: user.nickname,
+        job: user.job,
+        level: user.level,
+        exp: user.exp,
+        power: user.power,
+        defense: user.defense,
+        HP: user.HP,
+        MP: user.MP,
+        money: user.money,
+      });
       if (!user.nickname) {
         io.emit("connectUser", { user: "뉴비" });
         socket.emit("start", {
@@ -44,13 +56,6 @@ module.exports = (server) => {
           console.log(err);
         }
       });
-    });
-
-    // console.log(userId);
-    // const user = await Users.findOne({ where: { userId } });
-    socket.on("chatting", (data) => {
-      console.log(data);
-      io.emit("receive", data);
     });
   });
 };

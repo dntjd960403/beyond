@@ -4,12 +4,11 @@ require("dotenv").config();
 
 module.exports = async (req, res, next) => {
   try {
+    console.log(req.headers);
     const accessToken = req.headers.Authorization;
     console.log(req.headers.Authorization);
     console.log({ accessToken: accessToken });
     if (!accessToken) {
-      alert("다시 로그인 해주세요");
-      location.href("/");
       return res.status(401).json({ errorMsg: "다시 로그인 해주세요." });
     }
 
