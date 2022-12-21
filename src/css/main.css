@@ -5,6 +5,7 @@
 }
 .body {
   background-image: url("./images/background.png");
+  background-size: 100%;
 }
 
 .header {
@@ -22,7 +23,7 @@
 .Lwrap {
   width: 73%;
   height: 750px;
-  background-color: bisque;
+  /* background-color: bisque; */
 }
 .Rwrap {
   position: relative;
@@ -41,7 +42,13 @@
   border: 1px solid #000;
   overflow: auto;
   margin-left: 20px;
+  background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
+    url("./images/main_box.png");
+  background-size: 100%;
 }
+/* .story {
+  background-color: bisque;
+} */
 
 .chat_box {
   position: relative;
@@ -50,6 +57,7 @@
   margin-left: 20px;
   margin-top: 10px;
   /* font-size: large; */
+  border-radius: 10px;
 }
 
 .btn {
@@ -71,31 +79,51 @@
   margin-top: 10px;
   overflow: auto;
   border: 1px solid #000;
+  background-image: url("./images/get_box.png");
+  background-size: 100%;
 }
 
 .profile {
   width: 250px;
   height: 175px;
   margin-top: 10px;
-  border: 1px solid #000;
-  background-image: url("./images/profile1.png");
-  background-size: cover;
+  /* border: 1px solid #000; */
+  background-image: url("./images/profile.png");
+  background-size: 100%;
 }
 
-.status {
+.wrap_status {
   width: 250px;
   height: 335px;
   margin-top: 10px;
+  background-image: url("./images/status2.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.status {
+  position: relative;
+  top: 12px;
+  left: 15px;
+  width: 223px;
+  height: 300px;
   overflow: auto;
-  border: 1px solid #000;
   /* background-color: darkolivegreen; */
 }
 
-.chatting {
+.wrap_chatting {
   width: 250px;
   height: 190px;
   margin-top: 10px;
+  background-image: url("./images/chatting.png");
+  background-size: 100%;
+}
+.chatting {
+  position: relative;
+  top: 12px;
+  left: 13px;
+  width: 223px;
+  height: 165px;
+  margin-top: 10px;
   overflow: auto;
-  border: 1px solid #000;
   /* background-color: darkkhaki; */
 }

@@ -28,6 +28,7 @@ socket.on("connect", () => {
     $("#job").text(userInfo.job);
     $("#level").text(userInfo.level);
     $("#exp").text(userInfo.exp);
+    $("#needExp").text(userInfo.needExp);
     $("#power").text(userInfo.power);
     $("#defense").text(userInfo.defense);
     $("#HP").text(userInfo.HP);
@@ -36,6 +37,7 @@ socket.on("connect", () => {
   });
 
   socket.on("connectUser", (connectUser) => {
+    $("#main_box div").empty();
     $("#chattingList").append(`${connectUser.user} 접속!<br>`);
     objDivChat.scrollTop = objDivChat.scrollHeight;
   });
@@ -62,11 +64,24 @@ socket.on("connect", () => {
         } else if (checkNickname.msg === "2" || checkNickname.msg === "아니오") {
           $("#story").append(`그럼 뭐죠??<br><br>`);
           localStorage.setItem("stage", "nickname");
-        } else $("#story").append(`??? 똑바로 대답해 시발럼아<br>`);
+        } else $("#story").append(`네? 똑바로 대답해 주세요<br>`);
         objDiv.scrollTop = objDiv.scrollHeight;
       });
     }
     objDiv.scrollTop = objDiv.scrollHeight;
+  });
+
+  socket.on("fight", (data) => {
+    $("#main_box div").empty();
+    localStorage.setItem("stage", "fight");
+    $("#story").append(
+      `좋아요 훈련 공간 입니다.<br>어느 몬스터와 훈련을 하시겠어요?<br>1. 고블린<br>2. 슬라임<br><br>`
+    );
+  });
+  socket.on("monster", (monster) => {
+    console.log(monster.msg);
+    $("#story").append(`${monster.msg.name}과(와) 전투를 시작합니다.<br>`);
+    socket.emit("fight", { monster: monster.msg.name });
   });
 });
 
