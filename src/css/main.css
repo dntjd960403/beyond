@@ -3,10 +3,13 @@
   /* font-size: xx-large; */
   color: rgb(0, 0, 0);
 }
+.body {
+  background-image: url("./images/background.png");
+}
 
 .header {
   width: 100px;
-  height: 100px;
+  height: 20px;
 }
 .wrap {
   width: 1000px;
@@ -75,7 +78,8 @@
   height: 175px;
   margin-top: 10px;
   border: 1px solid #000;
-  /* background-color: black; */
+  background-image: url("./images/profile1.png");
+  background-size: cover;
 }
 
 .status {
