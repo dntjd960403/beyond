@@ -16,11 +16,11 @@
       <div class="Lwrap">
 
         <div class="main_box" id="main_box">
-          <div id="story"></div>
+          <div class="story" id="story"></div>
         </div>
 
         <div>
-          <input class="chat_box" id="text" placeholder="메세지를 입력해주세요" onkeyup="if(window.event.keyCode==13){send()} ">
+          <input class="chat_box" id="text" placeholder="메세지를 입력해 주세요" onkeyup="if(window.event.keyCode==13){send()} ">
           <button class="btn" id="sendBtn" onclick="send()">전송</button>
           <button class="logoutBtn" onclick="logout()">로그 아웃</button>
         </div>
@@ -32,29 +32,30 @@
       </div>
 
       <div class="Rwrap">
-        <div class="profile">
+        <div class="profile"></div>
 
-        </div>
-
-        <div class="status">
-          <div>이름 : <strong id="nickname"></strong></div>
-          <div>직업 : <strong id="job"></strong></div>
-          <div>레벨 : <strong id="level"></strong></div>
-          <div>경험치 : <strong id="exp"></strong></div>
-          <div>공격력 : <strong id="power"></strong> </div>
-          <div>방어력 : <strong id="defense"></strong> </div>
-          <div>체력 : <strong id="HP"></strong> </div>
-          <div>마나 : <strong id="MP"></strong> </div>
-          <div>보유 골드 : <strong id="money"></strong>골드</div>
-          <div>장착중인 장비<br>
-            1. <strong id="equipment1">미착용</strong><br>
-            2. <strong id="equipment2">미착용</strong><br>
-            3. <strong id="equipment3">미착용</strong><br>
+        <div class="wrap_status">
+          <div class="status">
+            <div>이름 : <strong id="nickname"></strong></div>
+            <div>직업 : <strong id="job"></strong></div>
+            <div>레벨 : <strong id="level"></strong></div>
+            <div>경험치 : <strong id="exp"></strong> / <strong id="needExp"></strong></div>
+            <div>공격력 : <strong id="power"></strong> </div>
+            <div>방어력 : <strong id="defense"></strong> </div>
+            <div>체력 : <strong id="HP"></strong> </div>
+            <div>마나 : <strong id="MP"></strong> </div>
+            <div>보유 골드 : <strong id="money"></strong>골드</div>
+            <div>장착중인 장비<br>
+              1. <strong id="equipment1">미착용</strong><br>
+              2. <strong id="equipment2">미착용</strong><br>
+              3. <strong id="equipment3">미착용</strong><br>
+            </div>
           </div>
         </div>
-
-        <div class="chatting" id="chatting">
-          <div id="chattingList"></div>
+        <div class="wrap_chatting">
+          <div class="chatting" id="chatting">
+            <div id="chattingList"></div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,17 +1,18 @@
 const socketIo = require("socket.io");
 const { Users } = require("./models");
-const redis = require("redis");
+// const redis = require("redis");
 const auth = require("./middlewares/auth");
+const monster = require("./js/monster");
 
-const redisClient = redis.createClient({ legacyMode: true });
-redisClient.on("connect", () => {
-  console.info("Redis connected!");
-});
-redisClient.on("error", (err) => {
-  console.error("Redis Client Error", err);
-});
-redisClient.connect().then();
-redisCli = redisClient.v4;
+// const redisClient = redis.createClient({ legacyMode: true });
+// redisClient.on("connect", () => {
+//   console.info("Redis connected!");
+// });
+// redisClient.on("error", (err) => {
+//   console.error("Redis Client Error", err);
+// });
+// redisClient.connect().then();
+// redisCli = redisClient.v4;
 
 module.exports = (server) => {
   const io = socketIo(server, { path: "/socket.io", cors: "*" });
@@ -19,12 +20,14 @@ module.exports = (server) => {
     try {
       socket.on("user", async (userId) => {
         const user = await Users.findOne({ where: { userId } });
+        let needExp = user.level * 50;
         console.log(user.userId + "접속");
         socket.emit("userInfo", {
           nickname: user.nickname,
           job: user.job,
           level: user.level,
           exp: user.exp,
+          needExp: needExp,
           power: user.power,
           defense: user.defense,
           HP: user.HP,
@@ -53,10 +56,19 @@ module.exports = (server) => {
               }
               socket.emit("checkNickname", { msg: data.msg, nickname: data.nickname });
             }
+            if (data.msg === "전투") {
+              socket.emit("fight");
+            }
+            if (data.stage === "fight") {
+              socket.emit("monster", { msg: monster[data.msg] });
+            }
           } catch (err) {
             console.log(err);
           }
         });
+      });
+      socket.on("fight", (data) => {
+        console.log(data);
       });
     } catch (err) {
       console.log(err);
