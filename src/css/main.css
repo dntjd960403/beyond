@@ -7,7 +7,6 @@
   background-image: url("./images/background.png");
   background-size: 100%;
 }
-
 .header {
   width: 100px;
   height: 20px;
@@ -34,21 +33,134 @@
   /* background-color: aquamarine; */
 }
 
+.vs_box {
+  position: relative;
+  top: 10px;
+  width: 700px;
+  height: 180px;
+  margin-left: 20px;
+  border: 1px solid #000;
+  background-color: blanchedalmond;
+}
+.L_vs {
+  width: 350px;
+  height: 180px;
+  /* background-color: beige; */
+}
+.L_vs_profile {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 160px;
+  height: 160px;
+  background-color: gray;
+}
+.L_vs_status {
+  position: relative;
+  bottom: 150px;
+  left: 180px;
+  width: 160px;
+  height: 160px;
+  /* background-color: gray; */
+}
+.L_vs_hp {
+  width: 160px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: red;
+}
+.L_vs_mp {
+  /* position: relative;
+  bottom: 160px; */
+  width: 160px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: blue;
+}
+.R_vs {
+  position: relative;
+  bottom: 180px;
+  left: 50%;
+  width: 350px;
+  height: 180px;
+  /* background-color: darkcyan; */
+}
+.R_vs_profile {
+  position: relative;
+  left: 180px;
+  bottom: 150px;
+  width: 160px;
+  height: 160px;
+  background-image: url("./images/profile.png");
+  background-size: 100%;
+  /* background-color: gray; */
+}
+.R_vs_status {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  width: 160px;
+  height: 160px;
+  /* background-color: gray; */
+}
+.R_vs_hp {
+  width: 160px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: red;
+}
+.R_vs_mp {
+  width: 160px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: blue;
+}
 .main_box {
   position: relative;
   top: 10px;
   width: 700px;
-  height: 500px;
+  height: 300px;
   border: 1px solid #000;
   overflow: auto;
+  margin-top: 10px;
   margin-left: 20px;
-  background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
-    url("./images/main_box.png");
+  /* background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
+    url("./images/main_box.png"); */
+  background-image: url(./images/main_box.png);
   background-size: 100%;
 }
-/* .story {
-  background-color: bisque;
-} */
+.story {
+  position: relative;
+  top: 12px;
+  width: 90%;
+  height: 90%;
+}
+.story_chat {
+  width: 680px;
+  height: 100px;
+  margin-left: 10px;
+  border-radius: 20px;
+  /* background-color: aliceblue; */
+}
+.story_chat_profile {
+  position: relative;
+  top: 5px;
+  width: 90px;
+  height: 90px;
+  margin-left: 10px;
+  border-radius: 10px;
+  background-color: gray;
+  background-image: url("./images/profile3.png");
+  background-size: 100%;
+}
+.story_chat_content {
+  position: relative;
+  bottom: 85px;
+  left: 110px;
+  width: 560px;
+  height: 90px;
+  background-color: gray;
+}
 
 .chat_box {
   position: relative;
@@ -83,21 +195,12 @@
   background-size: 100%;
 }
 
-.profile {
-  width: 250px;
-  height: 175px;
-  margin-top: 10px;
-  /* border: 1px solid #000; */
-  background-image: url("./images/profile.png");
-  background-size: 100%;
-}
-
 .wrap_status {
   width: 250px;
-  height: 335px;
+  height: 380px;
   margin-top: 10px;
   background-image: url("./images/status2.png");
-  background-size: 100%;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .status {
@@ -105,17 +208,19 @@
   top: 12px;
   left: 15px;
   width: 223px;
-  height: 300px;
+  height: 360px;
   overflow: auto;
+  font-size: 15px;
   /* background-color: darkolivegreen; */
 }
 
 .wrap_chatting {
   width: 250px;
-  height: 190px;
+  height: 300px;
   margin-top: 10px;
-  background-image: url("./images/chatting.png");
-  background-size: 100%;
+  /* background-image: url("./images/chatting.png");
+  background-size: 100%; */
+  background-color: white;
 }
 .chatting {
   position: relative;

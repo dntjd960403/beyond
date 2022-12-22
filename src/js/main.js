@@ -44,7 +44,20 @@ socket.on("connect", () => {
 
   socket.on("start", (data) => {
     // $("#story *").remove();
-    $("#story").append(`${data.msg}<br><br>`);
+    $("#story").append(`<div class="story_chat">
+    <div class="story_chat_profile">
+    </div>
+    <div class="story_chat_content">
+    ${data.msg1}
+    </div>
+    </div><br>`);
+    $("#story").append(`<div class="story_chat">
+    <div class="story_chat_profile">
+    </div>
+    <div class="story_chat_content">
+    ${data.msg2}
+    </div>
+    </div><br>`);
 
     // 뉴비일 때
     if (data.code === "newUser") {
@@ -52,6 +65,7 @@ socket.on("connect", () => {
       socket.on("nickname", (nickname) => {
         localStorage.setItem("stage", "checkNickname");
         localStorage.setItem("nickname", nickname.msg);
+        // $("#main_box div").empty();
         $("#story").append(`신입 열쇠 수리공: ${nickname.msg}<br><br>`);
         $("#story").append(`닉네임이 ${nickname.msg}이(가) 맞습니까?<br>1.네<br>2.아니오<br><br>`);
         objDiv.scrollTop = objDiv.scrollHeight;
