@@ -39,8 +39,8 @@
   width: 700px;
   height: 180px;
   margin-left: 20px;
-  border: 1px solid #000;
-  background-color: blanchedalmond;
+  background-image: url("./images/vs_box.png");
+  background-size: 100%;
 }
 .L_vs {
   width: 350px;
@@ -53,7 +53,9 @@
   left: 10px;
   width: 160px;
   height: 160px;
-  background-color: gray;
+  /* background-color: gray; */
+  background-image: url("./images/profile2.png");
+  background-size: 100%;
 }
 .L_vs_status {
   position: relative;
@@ -66,15 +68,29 @@
 .L_vs_hp {
   width: 160px;
   height: 20px;
-  border-radius: 10px;
-  background-color: red;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
 }
 .L_vs_mp {
-  /* position: relative;
-  bottom: 160px; */
   width: 160px;
   height: 20px;
-  border-radius: 10px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.L_vs_hp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  width: 145px;
+  height: 7px;
+  background-color: red;
+}
+.L_vs_mp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  width: 145px;
+  height: 7px;
   background-color: blue;
 }
 .R_vs {
@@ -106,13 +122,29 @@
 .R_vs_hp {
   width: 160px;
   height: 20px;
-  border-radius: 10px;
-  background-color: red;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
 }
 .R_vs_mp {
   width: 160px;
   height: 20px;
-  border-radius: 10px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.R_vs_hp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  width: 145px;
+  height: 7px;
+  background-color: red;
+}
+.R_vs_mp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  width: 145px;
+  height: 7px;
   background-color: blue;
 }
 .main_box {
@@ -121,35 +153,35 @@
   width: 700px;
   height: 300px;
   border: 1px solid #000;
-  overflow: auto;
   margin-top: 10px;
   margin-left: 20px;
   /* background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
     url("./images/main_box.png"); */
-  background-image: url(./images/main_box.png);
+  background-image: url("./images/main_box.png");
   background-size: 100%;
 }
 .story {
   position: relative;
-  top: 12px;
-  width: 90%;
-  height: 90%;
+  top: 13px;
+  left: 12px;
+  width: 675px;
+  height: 273px;
+  overflow: auto;
+  /* background-color: darkblue; */
 }
 .story_chat {
-  width: 680px;
-  height: 100px;
-  margin-left: 10px;
-  border-radius: 20px;
+  width: 670px;
+  height: 110px;
   /* background-color: aliceblue; */
 }
 .story_chat_profile {
   position: relative;
   top: 5px;
+  left: 10px;
   width: 90px;
   height: 90px;
-  margin-left: 10px;
   border-radius: 10px;
-  background-color: gray;
+  /* background-color: gray; */
   background-image: url("./images/profile3.png");
   background-size: 100%;
 }
@@ -157,9 +189,10 @@
   position: relative;
   bottom: 85px;
   left: 110px;
-  width: 560px;
+  width: 550px;
   height: 90px;
-  background-color: gray;
+  overflow: none;
+  /* background-color: gray; */
 }
 
 .chat_box {
@@ -199,7 +232,7 @@
   width: 250px;
   height: 380px;
   margin-top: 10px;
-  background-image: url("./images/status2.png");
+  background-image: url("./images/status.png");
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -216,19 +249,23 @@
 
 .wrap_chatting {
   width: 250px;
-  height: 300px;
+  height: 295px;
   margin-top: 10px;
-  /* background-image: url("./images/chatting.png");
-  background-size: 100%; */
-  background-color: white;
+  background-image: url("./images/chatting.png");
+  background-size: 100%;
+  /* background-color: white; */
 }
 .chatting {
   position: relative;
   top: 12px;
   left: 13px;
   width: 223px;
-  height: 165px;
+  height: 275px;
   margin-top: 10px;
   overflow: auto;
   /* background-color: darkkhaki; */
+}
+
+.chat_box2 {
+  margin-top: 10px;
 }

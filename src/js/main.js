@@ -14,7 +14,7 @@
 
 // 위의 socket.io.js에서 뽑아 쓴다.
 const socket = io();
-let objDiv = document.getElementById("main_box");
+let objDiv = document.getElementById("story");
 let objDivChat = document.getElementById("chatting");
 
 socket.on("connect", () => {
@@ -48,14 +48,7 @@ socket.on("connect", () => {
     <div class="story_chat_profile">
     </div>
     <div class="story_chat_content">
-    ${data.msg1}
-    </div>
-    </div><br>`);
-    $("#story").append(`<div class="story_chat">
-    <div class="story_chat_profile">
-    </div>
-    <div class="story_chat_content">
-    ${data.msg2}
+    ${data.msg}
     </div>
     </div><br>`);
 
@@ -65,7 +58,7 @@ socket.on("connect", () => {
       socket.on("nickname", (nickname) => {
         localStorage.setItem("stage", "checkNickname");
         localStorage.setItem("nickname", nickname.msg);
-        // $("#main_box div").empty();
+        $("#main_box div").empty();
         $("#story").append(`신입 열쇠 수리공: ${nickname.msg}<br><br>`);
         $("#story").append(`닉네임이 ${nickname.msg}이(가) 맞습니까?<br>1.네<br>2.아니오<br><br>`);
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -93,12 +86,14 @@ socket.on("connect", () => {
     );
   });
   socket.on("monster", (monster) => {
-    console.log(monster.msg);
     $("#story").append(`${monster.msg.name}과(와) 전투를 시작합니다.<br>`);
     socket.emit("fight", { monster: monster.msg.name });
   });
 });
-
+socket.on("send_chat", (data) => {
+  $("#chattingList").append(`${data.nickname} : ${data.msg}<br>`);
+  objDivChat.scrollTop = objDivChat.scrollHeight;
+});
 function send() {
   // let name = document.getElementById("name").value;
   let msg = document.getElementById("text").value;
@@ -111,6 +106,20 @@ function send() {
   $("#text").val("");
 }
 
+function send_chat() {
+  // let name = document.getElementById("name").value;
+  let msg = document.getElementById("chat_box2").value;
+  let nickname = localStorage.getItem("nickname");
+  if (!nickname) nickname = "뉴비";
+  let data = { msg, nickname };
+  if (msg === "") return;
+  socket.emit("send_chat", data);
+  $("#chat_box2").val("");
+}
+
+const clear_chat = () => {
+  $("#chattingList").empty();
+};
 const logout = () => {
   localStorage.clear();
   location.href = "/";

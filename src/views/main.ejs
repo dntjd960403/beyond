@@ -20,9 +20,11 @@
             <div class="L_vs_status">
               <strong>HP</strong>
               <div class="L_vs_hp">
+                <div class="L_vs_hp_content"></div>
               </div>
               <strong>MP</strong>
               <div class="L_vs_mp">
+                <div class="L_vs_mp_content"></div>
               </div>
             </div>
           </div>
@@ -30,9 +32,11 @@
             <div class="R_vs_status">
               <strong>HP</strong>
               <div class="R_vs_hp">
+                <div class="R_vs_hp_content"></div>
               </div>
               <strong>MP</strong>
               <div class="R_vs_mp">
+                <div class="R_vs_mp_content"></div>
               </div>
             </div>
             <div class="R_vs_profile"></div>
@@ -85,6 +89,10 @@
             <div id="chattingList"></div>
           </div>
         </div>
+        <input class="chat_box2" id="chat_box2" placeholder="메세지를 입력해 주세요"
+          onkeyup="if(window.event.keyCode==13){send_chat()} ">
+        <button class="chat_btn" id="chat_btn" onclick="send_chat()">전송</button>
+        <button id="clear" onclick="clear_chat()">Clear</button>
       </div>
     </div>
   </div>
