@@ -172,6 +172,8 @@
 .story_chat {
   width: 670px;
   height: 110px;
+  background-image: url("./images/story_chat.png");
+  background-size: 100%;
   /* background-color: aliceblue; */
 }
 .story_chat_profile {
@@ -182,7 +184,7 @@
   height: 90px;
   border-radius: 10px;
   /* background-color: gray; */
-  background-image: url("./images/profile3.png");
+  background-image: url("./images/yundal2.png");
   background-size: 100%;
 }
 .story_chat_content {
@@ -260,7 +262,7 @@
   top: 12px;
   left: 13px;
   width: 223px;
-  height: 275px;
+  height: 273px;
   margin-top: 10px;
   overflow: auto;
   /* background-color: darkkhaki; */
