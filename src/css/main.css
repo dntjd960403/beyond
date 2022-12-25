@@ -54,8 +54,8 @@
   width: 160px;
   height: 160px;
   /* background-color: gray; */
-  background-image: url("./images/profile2.png");
-  background-size: 100%;
+  /* background-image: url("./images/profile2.png");
+  background-size: 100%; */
 }
 .L_vs_status {
   position: relative;
@@ -81,7 +81,8 @@
   position: relative;
   top: 6px;
   left: 7px;
-  width: 145px;
+  max-width: 145px;
+  width: 100%;
   height: 7px;
   background-color: red;
 }
@@ -89,9 +90,28 @@
   position: relative;
   top: 6px;
   left: 7px;
-  width: 145px;
+  max-width: 145px;
+  width: 100%;
   height: 7px;
   background-color: blue;
+}
+.wrap_lv {
+  width: 160px;
+  height: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 90%;
+  background-image: url("./images/nickname.png");
+  background-size: 100%;
+}
+.wrap_nickname {
+  width: 160px;
+  height: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 90%;
+  background-image: url("./images/nickname.png");
+  background-size: 100%;
 }
 .R_vs {
   position: relative;
@@ -104,12 +124,12 @@
 .R_vs_profile {
   position: relative;
   left: 180px;
-  bottom: 150px;
+  bottom: 160px;
   width: 160px;
   height: 160px;
-  background-image: url("./images/profile.png");
-  background-size: 100%;
-  /* background-color: gray; */
+  /* background-image: url("./images/profile.png");
+  background-size: 100%; */
+  background-color: gray;
 }
 .R_vs_status {
   position: relative;
@@ -135,7 +155,8 @@
   position: relative;
   top: 6px;
   left: 7px;
-  width: 145px;
+  max-width: 145px;
+  width: 100%;
   height: 7px;
   background-color: red;
 }
@@ -143,7 +164,8 @@
   position: relative;
   top: 6px;
   left: 7px;
-  width: 145px;
+  max-width: 145px;
+  width: 100%;
   height: 7px;
   background-color: blue;
 }
@@ -164,14 +186,16 @@
   position: relative;
   top: 13px;
   left: 12px;
-  width: 675px;
-  height: 273px;
+  max-width: 675px;
+  height: 275px;
   overflow: auto;
   /* background-color: darkblue; */
+  /* background-image: url("./images/lobby.png");
+  background-size: 100%; */
 }
 .story_chat {
-  width: 670px;
-  height: 110px;
+  max-width: 670px;
+  max-height: 110px;
   background-image: url("./images/story_chat.png");
   background-size: 100%;
   /* background-color: aliceblue; */
@@ -191,7 +215,7 @@
   position: relative;
   bottom: 85px;
   left: 110px;
-  width: 550px;
+  max-width: 550px;
   height: 90px;
   overflow: none;
   /* background-color: gray; */
@@ -224,10 +248,17 @@
   height: 170px;
   margin-left: 20px;
   margin-top: 10px;
-  overflow: auto;
   border: 1px solid #000;
   background-image: url("./images/get_box.png");
   background-size: 100%;
+}
+.get {
+  width: 677px;
+  height: 145px;
+  margin: auto;
+  margin-top: 13px;
+  overflow: auto;
+  /* background-color: gray; */
 }
 
 .wrap_status {
@@ -270,4 +301,19 @@
 
 .chat_box2 {
   margin-top: 10px;
+}
+
+.door {
+  width: 90px;
+  height: 180px;
+  margin: auto;
+  background-image: url("./images/door_tutorial.png");
+  background-size: 100%;
+}
+
+img {
+  position: relative;
+  width: 100%;
+  height: 98.7%;
+  object-fit: 100%;
 }

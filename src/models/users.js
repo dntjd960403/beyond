@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       level: DataTypes.INTEGER,
       exp: DataTypes.INTEGER,
       power: DataTypes.INTEGER,
+      magic: DataTypes.INTEGER,
       defense: DataTypes.INTEGER,
       HP: DataTypes.INTEGER,
       MP: DataTypes.INTEGER,

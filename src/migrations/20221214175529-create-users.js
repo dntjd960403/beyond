@@ -31,19 +31,23 @@ module.exports = {
       },
       power: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        defaultValue: 10,
+      },
+      magic: {
+        type: Sequelize.INTEGER,
+        defaultValue: 10,
       },
       defense: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        defaultValue: 10,
       },
       HP: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        defaultValue: 100,
       },
       MP: {
         type: Sequelize.INTEGER,
-        defaultValue: 1,
+        defaultValue: 100,
       },
       money: {
         type: Sequelize.INTEGER,

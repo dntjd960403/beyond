@@ -16,11 +16,15 @@
       <div class="Lwrap">
         <div class="vs_box">
           <div class="L_vs">
-            <div class="L_vs_profile"></div>
+            <div class="L_vs_profile">
+              <img id="L_vs_profile">
+            </div>
             <div class="L_vs_status">
+              <div class="wrap_lv">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsplv.<strong id="L_lv"></strong></div>
+              <div class="wrap_nickname">&nbsp<strong id="L_nickname"></strong></div>
               <strong>HP</strong>
               <div class="L_vs_hp">
-                <div class="L_vs_hp_content"></div>
+                <div class="L_vs_hp_content" id="L_vs_hp_content"></div>
               </div>
               <strong>MP</strong>
               <div class="L_vs_mp">
@@ -30,21 +34,29 @@
           </div>
           <div class="R_vs">
             <div class="R_vs_status">
+              <div class="wrap_lv">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsplv.
+                <strong id="level"></strong>
+              </div>
+              <div class="wrap_nickname">&nbsp<strong id="nickname"></strong></div>
               <strong>HP</strong>
               <div class="R_vs_hp">
-                <div class="R_vs_hp_content"></div>
+                <div class="R_vs_hp_content" id="R_vs_hp_content"></div>
               </div>
               <strong>MP</strong>
               <div class="R_vs_mp">
                 <div class="R_vs_mp_content"></div>
               </div>
             </div>
-            <div class="R_vs_profile"></div>
+            <div class="R_vs_profile">
+              <img id="R_vs_profile">
+            </div>
           </div>
         </div>
 
         <div class="main_box" id="main_box">
-          <div class="story" id="story"></div>
+          <div class="story" id="story">
+            <img id="lobby">
+          </div>
         </div>
 
         <div>
@@ -54,7 +66,7 @@
         </div>
 
         <div class="get_box">
-          <div id="get"></div>
+          <div class="get" id="get"></div>
         </div>
 
       </div>
@@ -64,13 +76,13 @@
           <div class="status">
             <!-- <div>이름 : <strong id="nickname"></strong></div> -->
             <div>직업 : <strong id="job"></strong></div>
-            <div>레벨 : <strong id="level"></strong></div>
+            <div>레벨 : <strong id="level2"></strong></div>
             <div>경험치 : <strong id="exp"></strong> / <strong id="needExp"></strong></div>
             <div>물리 공격력 : <strong id="power"></strong> </div>
-            <div>마법 공격력 : <strong id="power2"></strong> </div>
+            <div>마법 공격력 : <strong id="magic"></strong> </div>
             <div>방어력 : <strong id="defense"></strong> </div>
-            <div>체력 : <strong id="HP"></strong> </div>
-            <div>마나 : <strong id="MP"></strong> </div>
+            <div>체력 : <strong id="HP"></strong> / <strong id="maxHP"></strong></div>
+            <div>마나 : <strong id="MP"></strong> / <strong id="maxMP"></strong></div>
             <div>보유 골드 : <strong id="money"></strong>골드</div>
             <div>장착중인 장비<br>
               1. <strong id="equipment1">미착용</strong><br>
