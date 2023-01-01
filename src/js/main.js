@@ -1,4 +1,4 @@
-// const AT = localStorage.getItem("Authorization");
+const AT = localStorage.getItem("Authorization");
 // axios
 //   .get("/main", {
 //     headers: {
@@ -52,7 +52,8 @@ socket.on("connectUser", (connectUser) => {
 
 socket.on("start", (data) => {
   if (data.code === "newUser") {
-    document.getElementById("L_vs_profile").src = `../css/images/yundal2.png`;
+    leftProfile("yundal2");
+    $("#L_nickname").text("윤달");
     $("#L_nickname").text(data.name);
     $("#main_box div").empty();
     $("#story").append(`<div class="story_chat">
@@ -71,14 +72,7 @@ socket.on("start", (data) => {
       localStorage.setItem("stage", "checkNickname");
       localStorage.setItem("nickname", nickname.msg);
       $("#main_box div").empty();
-      $("#story").append(
-        `<div class="story_chat">
-              <div class="story_chat_profile"></div>
-              <div class="story_chat_content">
-                ${nickname.msg}입니다!
-              </div>
-            </div><br>`
-      );
+
       $("#story").append(`<div class="story_chat">
         <div class="story_chat_profile"></div>
         <div class="story_chat_content">
@@ -221,20 +215,26 @@ socket.on("lobby", (data) => {
 
 socket.on("beyond", () => {
   $("#main_box div").empty();
+  $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "beyond");
-  $("#story").append(`이곳은 비욘드`);
+  document.getElementById("lobby").src = `../css/images/stage1.png`;
 });
 
 socket.on("keyRing", () => {
   $("#main_box div").empty();
+  $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "keyRing");
-  $("#story").append(`이곳은 키링 상점`);
+  leftProfile("keyringmachine");
+  $("#L_nickname").text("뽑기");
+  document.getElementById("lobby").src = `../css/images/keyring.png`;
 });
 
 socket.on("pub", () => {
   $("#main_box div").empty();
   localStorage.setItem("stage", "pub");
-  $("#story").append(`이곳은 주점`);
+  leftProfile("sara");
+  $("#L_nickname").text("사라");
+  $("#story").append(`체력과 마나가 회복 되었습니다.`);
 });
 
 socket.on("smithy", () => {
@@ -255,17 +255,29 @@ socket.on("storytelling", () => {
   $("#story").append(`이곳은 스토리`);
 });
 
-socket.on("fight", (data) => {
+socket.on("quest", () => {
   $("#main_box div").empty();
-  localStorage.setItem("stage", "fight");
-  $("#story").append(
-    `좋아요 훈련 공간 입니다.<br>어느 몬스터와 훈련을 하시겠어요?<br>1. 고블린<br>2. 슬라임<br><br>`
-  );
+  localStorage.setItem("stage", "storytelling");
+  $("#story").append(`이곳은 퀘스트`);
 });
+
+socket.on("help", () => {
+  $("#main_box div").empty();
+  localStorage.setItem("stage", "storytelling");
+  $("#story").append(`이곳은 도움말`);
+});
+
+// socket.on("fight", (data) => {
+//   $("#main_box div").empty();
+//   localStorage.setItem("stage", "fight");
+//   $("#story").append(
+//     `좋아요 훈련 공간 입니다.<br>어느 몬스터와 훈련을 하시겠어요?<br>1. 고블린<br>2. 슬라임<br><br>`
+//   );
+// });
 socket.on("monster", (monster) => {
   $("#main_box div").empty();
   localStorage.setItem("stage", "end_fight");
-  document.getElementById("L_vs_profile").src = `../css/images/${monster.msg.img}.png`;
+  leftProfile(monster.msg.img);
   $("#story").append(`${monster.msg.name}과(와) 전투를 시작합니다.<br>`);
   let nickname = $("#nickname").text();
   let monsterHP = monster.msg.HP;
@@ -274,21 +286,33 @@ socket.on("monster", (monster) => {
   let myMP = $("#MP").text();
   let myPower = $("#power").text();
   let myDefense = $("#defense").text();
-  let attack = myPower - monster.msg.defense;
-  if (attack <= 0) attack = 1;
-  let damage = monster.msg.power - myDefense;
-  if (damage <= 0) damage = 1;
   let myHPPer = (myHP / myMaxHP) * 100;
   let monsterHPPer = 100;
   $("#L_lv").text(monster.msg.level);
   $("#L_nickname").text(monster.msg.name);
   setTimeout(() => {
     while (monsterHP > 0 || myHP > 0) {
+      let attack = myPower - monster.msg.defense;
+      if (attack <= 0) attack = 1;
+      let damage = monster.msg.power - myDefense;
+      if (damage <= 0) damage = 1;
       myHPPer = (myHP / myMaxHP) * 100;
       monsterHPPer = (monsterHP / monster.msg.HP) * 100;
       $("#story").append(`
             ======================<br>`);
+      let ranDmg1 = ranDmg();
+      let ranDmg2 = ranDmg();
+      if (ranDmg1 === 11) {
+        ranDmg1 = 15;
+        $("#story").append(`${nickname}의 크리티컬 공격<br>`);
+      }
+      attack = parseInt((attack * ranDmg1) / 10);
       monsterHP -= attack;
+      if (ranDmg2 === 11) {
+        ranDmg2 = 15;
+        $("#story").append(`${monster.msg.name}의 크리티컬 공격<br>`);
+      }
+      damage = parseInt((damage * ranDmg2) / 10);
       myHP -= damage;
       $("#story").append(`
             ${nickname}의 베기 공격<br>
@@ -309,10 +333,26 @@ socket.on("monster", (monster) => {
           ${monster.msg.name}을 처치 하였습니다<br>
           1. 전투종료
           `);
+        let ranMoney = Math.floor(Math.random() * 101);
+        let money = parseInt((monster.msg.money * ranMoney) / 100);
         $("#get").append(`경험치 [${monster.msg.exp}] 획득<br>`);
+        $("#get").append(`[${money}]골드 획득<br>`);
+        let random = randomPer();
+        const itemList = monster.msg.item;
+        let itemPer1 = 0;
+        let itemPer2 = 0;
+        for (let i = 0; i < itemList.length; i++) {
+          itemPer1 += itemList[i][0];
+          if (random > itemPer2 && itemPer1 >= random) {
+            $("#get").append(`[${itemList[i][1]}] 획득<br>`);
+            socket.emit("getItem", { item: itemList[i][1], nickname: nickname });
+          }
+          itemPer2 = itemPer1;
+        }
         socket.emit("fight", {
           HP: myHP,
           exp: monster.msg.exp,
+          money: money,
         });
         objDivGet.scrollTop = objDivGet.scrollHeight;
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -370,4 +410,16 @@ const clear_chat = () => {
 const logout = () => {
   localStorage.clear();
   location.href = "/";
+};
+
+const leftProfile = (img) => {
+  document.getElementById("L_vs_profile").src = `../css/images/${img}.png`;
+};
+
+const ranDmg = () => {
+  return Math.floor(Math.random() * 12);
+};
+
+const randomPer = () => {
+  return Math.floor(Math.random() * 101);
 };

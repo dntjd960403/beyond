@@ -9,6 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      // this.hasMany(models.Bags, {
+      //   as: "Bags",
+      //   foreignKey: "nickname",
+      //   sourceKey: "nickname",
+      //   onDelete: "cascade",
+      //   onUpdate: "cascade",
+      // });
     }
   }
   Users.init(
