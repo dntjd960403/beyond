@@ -120,9 +120,11 @@ module.exports = (server) => {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
                 if (data.msg === "1" || data.msg === "입장") {
                   let number = random();
-                  if (number >= 90) {
-                    number = 3;
-                  } else number = 2;
+                  if (number <= 40) number = 2;
+                  else if (number <= 65) number = 3;
+                  else if (number <= 85) number = 4;
+                  else if (number <= 95) number = 5;
+                  else if (number <= 100) number = 6;
                   socket.emit("monster", { msg: monster[number] });
                 }
               }
@@ -199,8 +201,8 @@ module.exports = (server) => {
             );
             maxHP = 100 + user.level * 50;
             maxMP = 100 + user.level * 25;
-            recovery();
-            userInfo();
+            await recovery();
+            await userInfo();
           };
           const recovery = async () => {
             await Users.update({ HP: maxHP, MP: maxMP }, { where: { userId } });
