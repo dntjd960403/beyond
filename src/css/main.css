@@ -7,7 +7,6 @@
   background-image: url("./images/background.png");
   background-size: 100%;
 }
-
 .header {
   width: 100px;
   height: 20px;
@@ -34,21 +33,193 @@
   /* background-color: aquamarine; */
 }
 
+.vs_box {
+  position: relative;
+  top: 10px;
+  width: 700px;
+  height: 180px;
+  margin-left: 20px;
+  background-image: url("./images/vs_box.png");
+  background-size: 100%;
+}
+.L_vs {
+  width: 350px;
+  height: 180px;
+  /* background-color: beige; */
+}
+.L_vs_profile {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 160px;
+  height: 160px;
+  /* background-color: gray; */
+  /* background-image: url("./images/profile2.png");
+  background-size: 100%; */
+}
+.L_vs_status {
+  position: relative;
+  bottom: 150px;
+  left: 180px;
+  width: 160px;
+  height: 160px;
+  /* background-color: gray; */
+}
+.L_vs_hp {
+  width: 160px;
+  height: 20px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.L_vs_mp {
+  width: 160px;
+  height: 20px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.L_vs_hp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  max-width: 145px;
+  width: 100%;
+  height: 7px;
+  background-color: red;
+}
+.L_vs_mp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  max-width: 145px;
+  width: 100%;
+  height: 7px;
+  background-color: blue;
+}
+.wrap_lv {
+  width: 160px;
+  height: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 90%;
+  background-image: url("./images/nickname.png");
+  background-size: 100%;
+}
+.wrap_nickname {
+  width: 160px;
+  height: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 90%;
+  background-image: url("./images/nickname.png");
+  background-size: 100%;
+}
+.R_vs {
+  position: relative;
+  bottom: 180px;
+  left: 50%;
+  width: 350px;
+  height: 180px;
+  /* background-color: darkcyan; */
+}
+.R_vs_profile {
+  position: relative;
+  left: 180px;
+  bottom: 160px;
+  width: 160px;
+  height: 160px;
+  /* background-image: url("./images/profile.png");
+  background-size: 100%; */
+  background-color: gray;
+}
+.R_vs_status {
+  position: relative;
+  left: 10px;
+  top: 10px;
+  width: 160px;
+  height: 160px;
+  /* background-color: gray; */
+}
+.R_vs_hp {
+  width: 160px;
+  height: 20px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.R_vs_mp {
+  width: 160px;
+  height: 20px;
+  background-image: url("./images/HP_box.png");
+  background-size: 100%;
+}
+.R_vs_hp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  max-width: 145px;
+  width: 100%;
+  height: 7px;
+  background-color: red;
+}
+.R_vs_mp_content {
+  position: relative;
+  top: 6px;
+  left: 7px;
+  max-width: 145px;
+  width: 100%;
+  height: 7px;
+  background-color: blue;
+}
 .main_box {
   position: relative;
   top: 10px;
   width: 700px;
-  height: 500px;
+  height: 300px;
   border: 1px solid #000;
-  overflow: auto;
+  margin-top: 10px;
   margin-left: 20px;
-  background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
-    url("./images/main_box.png");
+  /* background-image: linear-gradient(rgba(250, 236, 124, 0.8), rgba(255, 254, 254, 0.8)),
+    url("./images/main_box.png"); */
+  background-image: url("./images/main_box.png");
   background-size: 100%;
 }
-/* .story {
-  background-color: bisque;
-} */
+.story {
+  position: relative;
+  top: 13px;
+  left: 12px;
+  max-width: 675px;
+  height: 275px;
+  overflow: auto;
+  /* background-color: darkblue; */
+  /* background-image: url("./images/lobby.png");
+  background-size: 100%; */
+}
+.story_chat {
+  max-width: 670px;
+  max-height: 110px;
+  background-image: url("./images/story_chat.png");
+  background-size: 100%;
+  /* background-color: aliceblue; */
+}
+.story_chat_profile {
+  position: relative;
+  top: 5px;
+  left: 10px;
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  /* background-color: gray; */
+  background-image: url("./images/yundal2.png");
+  background-size: 100%;
+}
+.story_chat_content {
+  position: relative;
+  bottom: 85px;
+  left: 110px;
+  max-width: 550px;
+  height: 90px;
+  overflow: none;
+  /* background-color: gray; */
+}
 
 .chat_box {
   position: relative;
@@ -77,27 +248,25 @@
   height: 170px;
   margin-left: 20px;
   margin-top: 10px;
-  overflow: auto;
   border: 1px solid #000;
   background-image: url("./images/get_box.png");
   background-size: 100%;
 }
-
-.profile {
-  width: 250px;
-  height: 175px;
-  margin-top: 10px;
-  /* border: 1px solid #000; */
-  background-image: url("./images/profile.png");
-  background-size: 100%;
+.get {
+  width: 677px;
+  height: 145px;
+  margin: auto;
+  margin-top: 13px;
+  overflow: auto;
+  /* background-color: gray; */
 }
 
 .wrap_status {
   width: 250px;
-  height: 335px;
+  height: 380px;
   margin-top: 10px;
-  background-image: url("./images/status2.png");
-  background-size: 100%;
+  background-image: url("./images/status.png");
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .status {
@@ -105,25 +274,46 @@
   top: 12px;
   left: 15px;
   width: 223px;
-  height: 300px;
+  height: 360px;
   overflow: auto;
+  font-size: 15px;
   /* background-color: darkolivegreen; */
 }
 
 .wrap_chatting {
   width: 250px;
-  height: 190px;
+  height: 295px;
   margin-top: 10px;
   background-image: url("./images/chatting.png");
   background-size: 100%;
+  /* background-color: white; */
 }
 .chatting {
   position: relative;
   top: 12px;
   left: 13px;
   width: 223px;
-  height: 165px;
+  height: 273px;
   margin-top: 10px;
   overflow: auto;
   /* background-color: darkkhaki; */
+}
+
+.chat_box2 {
+  margin-top: 10px;
+}
+
+.door {
+  width: 90px;
+  height: 180px;
+  margin: auto;
+  background-image: url("./images/door_tutorial.png");
+  background-size: 100%;
+}
+
+img {
+  position: relative;
+  width: 100%;
+  height: 98.7%;
+  object-fit: 100%;
 }

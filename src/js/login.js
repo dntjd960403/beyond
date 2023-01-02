@@ -23,7 +23,6 @@ function login() {
       alert(result.data.message);
       return (location.href = "/main");
     })
-
     .catch(function (error) {
       alert(error.response.data.errorMsg);
     });
