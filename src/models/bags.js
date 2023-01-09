@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.Bags.belongsTo(models.Items, {
+        foreignKey: "itemName",
+        targetKey: "name",
+        onDelete: "cascade",
+        onUpdate: "cascade",
+      });
     }
   }
   Bags.init(

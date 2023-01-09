@@ -12,7 +12,7 @@ module.exports = {
     money: 100,
   },
   2: {
-    // 40,25,20,10,5
+    // 40
     name: "죽이고싶은슬라임",
     img: "slime2",
     level: 1,
@@ -45,20 +45,17 @@ module.exports = {
     money: 50,
   },
   4: {
-    // 25
-    name: "포이즌스컬",
-    img: "poisonskull",
-    level: 4,
-    power: 15,
-    defense: 20,
-    HP: 220,
-    MP: 50,
-    item: [
-      [5, "독가루"],
-      [3, "뼈지팡이"],
-    ],
-    exp: 7,
-    money: 50,
+    // 20
+    name: "몰락한왕",
+    img: "molwang",
+    level: 5,
+    power: 17,
+    defense: 25,
+    HP: 250,
+    MP: 10,
+    item: [[0.1, "왕의 눈물"]],
+    exp: 10,
+    money: 100,
   },
   5: {
     //10

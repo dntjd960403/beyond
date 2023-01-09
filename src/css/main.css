@@ -208,8 +208,8 @@
   height: 90px;
   border-radius: 10px;
   /* background-color: gray; */
-  background-image: url("./images/yundal2.png");
-  background-size: 100%;
+  /* background-image: url("./images/yundal2.png"); */
+  /* background-size: 100%; */
 }
 .story_chat_content {
   position: relative;
@@ -221,6 +221,52 @@
   /* background-color: gray; */
 }
 
+.item_box {
+  width: 650px;
+  height: 70px;
+  background-image: url("./images/item.png");
+  background-size: 100%;
+}
+.item_type {
+  position: relative;
+  top: 6px;
+  left: 6px;
+  width: 58px;
+  height: 55px;
+  text-align: center;
+  line-height: 58px;
+  /* background-color: blue; */
+}
+.item_name {
+  position: relative;
+  bottom: 49px;
+  left: 71px;
+  width: 163px;
+  height: 55px;
+  text-align: center;
+  line-height: 58px;
+  /* background-color: blue; */
+}
+.item_content {
+  position: relative;
+  bottom: 104px;
+  left: 240px;
+  width: 350px;
+  height: 55px;
+  text-align: center;
+  line-height: 58px;
+  /* background-color: blue; */
+}
+.item_quantity {
+  position: relative;
+  bottom: 159px;
+  left: 597px;
+  width: 47px;
+  height: 55px;
+  text-align: center;
+  line-height: 58px;
+  /* background-color: blue; */
+}
 .chat_box {
   position: relative;
   top: 15px;
