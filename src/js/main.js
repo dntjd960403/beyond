@@ -384,6 +384,7 @@ socket.on("help", () => {
 //     `좋아요 훈련 공간 입니다.<br>어느 몬스터와 훈련을 하시겠어요?<br>1. 고블린<br>2. 슬라임<br><br>`
 //   );
 // });
+
 socket.on("monster", (monster) => {
   $("#main_box div").empty();
   localStorage.setItem("stage", "end_fight");
@@ -402,7 +403,6 @@ socket.on("monster", (monster) => {
   $("#L_nickname").text(monster.msg.name);
   setTimeout(() => {
     while (monsterHP > 0 || myHP > 0) {
-      console.log(myPower);
       let attack = myPower - monster.msg.defense;
       if (attack <= 0) attack = 1;
       let damage = monster.msg.power - myDefense;
@@ -490,13 +490,21 @@ socket.on("send_chat", (data) => {
   $("#chattingList").append(`${data.nickname} : ${data.msg}<br>`);
   objDivChat.scrollTop = objDivChat.scrollHeight;
 });
+
 socket.on("levelup", () => {
   $("#get").append(`레벨이 올랐습니다!<br>`);
   objDivGet.scrollTop = objDivGet.scrollHeight;
 });
+
 socket.on("error", (error) => {
   alert(error.msg);
 });
+
+socket.on("warning", (warning) => {
+  const result = confirm(warning.msg);
+  socket.emit("warn_response", { msg: result });
+});
+
 function send() {
   let msg = document.getElementById("text").value;
   let stage = localStorage.getItem("stage");

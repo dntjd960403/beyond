@@ -2,6 +2,7 @@ const socketIo = require("socket.io");
 const { Users, Bags, Items, Equips } = require("./models");
 const auth = require("./middlewares/auth");
 const monster = require("./js/monster");
+const { compareSync } = require("bcrypt");
 
 // const redis = require("redis");
 // const redisClient = redis.createClient({ legacyMode: true });
@@ -30,46 +31,55 @@ module.exports = (server) => {
             let userEquip = await Equips.findOne({
               where: { nickname: user.nickname },
             });
-            let helmet = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.helmet },
-            });
-            let armor = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.armor },
-            });
-            let weapon = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.weapon },
-            });
-            let keyRing1 = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.keyRing1 },
-            });
-            let keyRing2 = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.keyRing2 },
-            });
-            let keyRing3 = await Items.findOne({
-              attributes: ["name", "explanation"],
-              where: { name: userEquip.keyRing3 },
-            });
-            let items = [helmet, armor, weapon, keyRing1, keyRing2, keyRing3];
-            // const statType = {
-            //   공격력: "power",
-            //   방어력: "defense",
-            // };
+            let helmet, armor, weapon, keyRing1, keyRing2, keyRing3;
             let subDefense = 0,
               subMagic = 0,
               subPower = 0;
-            items.forEach((v) => {
-              if (v) {
-                let [stat, val] = v.explanation.split(" +");
-                if (stat === "공격력") subPower += val * 1;
-                else if (stat === "마법공격력") subMagic += val * 1;
-                else if (stat === "방어력") subDefense += val * 1;
-              }
-            });
+            if (userEquip) {
+              helmet = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.helmet },
+              });
+              armor = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.armor },
+              });
+              weapon = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.weapon },
+              });
+              keyRing1 = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.keyRing1 },
+              });
+              keyRing2 = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.keyRing2 },
+              });
+              keyRing3 = await Items.findOne({
+                attributes: ["name", "explanation"],
+                where: { name: userEquip.keyRing3 },
+              });
+              let items = [helmet, armor, weapon, keyRing1, keyRing2, keyRing3];
+              // const statType = {
+              //   공격력: "power",
+              //   방어력: "defense",
+              // };
+              items.forEach((v) => {
+                if (v) {
+                  let [stat, val] = v.explanation.split(" +");
+                  if (stat === "공격력") subPower += val * 1;
+                  else if (stat === "마법공격력") subMagic += val * 1;
+                  else if (stat === "방어력") subDefense += val * 1;
+                }
+              });
+              if (helmet) helmet = helmet.name;
+              if (armor) armor = armor.name;
+              if (weapon) weapon = weapon.name;
+              if (keyRing1) keyRing1 = keyRing1.name;
+              if (keyRing2) keyRing2 = keyRing2.name;
+              if (keyRing3) keyRing3 = keyRing3.name;
+            }
             needExp = parseInt(user.level * (50 * (0.7 * user.level)));
             maxHP = 100 + (user.level - 1) * 50;
             maxMP = 100 + (user.level - 1) * 25;
@@ -87,12 +97,12 @@ module.exports = (server) => {
               maxHP: maxHP,
               maxMP: maxMP,
               money: user.money,
-              helmet: userEquip.helmet,
-              armor: userEquip.armor,
-              weapon: userEquip.weapon,
-              keyRing1: userEquip.keyRing1,
-              keyRing2: userEquip.keyRing2,
-              keyRing3: userEquip.keyRing3,
+              helmet: helmet,
+              armor: armor,
+              weapon: weapon,
+              keyRing1: keyRing1,
+              keyRing2: keyRing2,
+              keyRing3: keyRing3,
               subPower: subPower,
               subMagic: subMagic,
               subDefense: subDefense,
@@ -125,10 +135,14 @@ module.exports = (server) => {
               if (data.stage === "nickname") socket.emit("nickname", { msg: data.msg });
               if (data.stage === "checkNickname") {
                 if (data.msg === "1" || data.msg === "네") {
-                  await Users.update(
-                    { nickname: data.nickname },
-                    { where: { userId: data.userId } }
-                  );
+                  try {
+                    await Users.update(
+                      { nickname: data.nickname },
+                      { where: { userId: data.userId } }
+                    );
+                  } catch (err) {
+                    return socket.emit("error", { msg: "중복된 닉네임" });
+                  }
                 }
                 socket.emit("checkNickname", { msg: data.msg, nickname: data.nickname });
               }
@@ -189,6 +203,22 @@ module.exports = (server) => {
                   else if (number <= 95) number = 5;
                   else if (number <= 100) number = 6;
                   socket.emit("monster", { msg: monster[number] });
+                }
+                if (data.msg === "2" || data.msg === "보스") {
+                  await socket.emit("warning", {
+                    msg: "보스입장권(1)을 소모하고 도전하시겠습니까?",
+                  });
+                  await socket.on("warn_response", async (response) => {
+                    if (response.msg) {
+                      const checkItem = await Bags.findOne({
+                        where: { nickname: data.nickname, itemName: "보스입장권(1)" },
+                      });
+                      if (!checkItem || checkItem.quantity < 1) {
+                        return socket.emit("error", { msg: "입장권이 부족합니다." });
+                      }
+                      socket.emit("monster", { msg: monster[7] });
+                    }
+                  });
                 }
               }
               if (data.stage === "keyRing") {
