@@ -48,6 +48,15 @@ socket.on("userInfo", (userInfo) => {
   $("#MP").text(userInfo.MP);
   $("#maxMP").text(userInfo.maxMP);
   $("#money").text(userInfo.money);
+  $("#helmet").text(userInfo.helmet || "미착용");
+  $("#armor").text(userInfo.armor || "미착용");
+  $("#weapon").text(userInfo.weapon || "미착용");
+  $("#keyRing1").text(userInfo.keyRing1 || "미착용");
+  $("#keyRing2").text(userInfo.keyRing2 || "미착용");
+  $("#keyRing3").text(userInfo.keyRing3 || "미착용");
+  $("#subPower").text(userInfo.subPower);
+  $("#subMagic").text(userInfo.subMagic);
+  $("#subDefense").text(userInfo.subDefense);
   let HPper = ($("#HP").text() / $("#maxHP").text()) * 100;
   document.getElementById("R_vs_hp_content").style.width = `${HPper}%`;
 });
@@ -181,7 +190,7 @@ socket.on("start", (data) => {
         setTimeout(() => {
           $("#story").append(`<div class="story_chat">
             <div class="story_chat_profile">
-    <img id="story_chat_profile"></div>
+            <img id="story_chat_profile"></div>
             <div class="story_chat_content">
             “띠링!(문자 알림음)”<br>
             마침 임무가 떨어졌군<br>
@@ -210,7 +219,7 @@ socket.on("start", (data) => {
       localStorage.setItem("stage", "tutorial2");
       $("#story").append(`<div class="story_chat">
         <div class="story_chat_profile">
-    <img id="story_chat_profile">
+        <img id="story_chat_profile">
         </div>
         <div class="story_chat_content">
         간단하다. 문이 보이면<br>
@@ -219,8 +228,8 @@ socket.on("start", (data) => {
         1. 네!
         </div>
         </div><br>`);
+      storyProfile("yundal2");
     });
-    storyProfile("yundal2");
     socket.on("tutorial2", (nickname) => {
       $("#main_box div").empty();
       localStorage.setItem("stage", "fight");
@@ -332,8 +341,8 @@ socket.on("smithy", () => {
 socket.on("bag", () => {
   $("#main_box div").empty();
   localStorage.setItem("stage", "bag");
+  alert("아이템 장착 방법: 해당 아이템 이름 + 장착");
   socket.on("myBag", (item) => {
-    alert("아이템 장착 방법: 해당 아이템 이름 + 장착");
     $("#story").empty();
     item.item.forEach((item) => {
       if (item.quantity > 0) {
@@ -385,14 +394,15 @@ socket.on("monster", (monster) => {
   let myHP = $("#HP").text();
   let myMaxHP = $("#maxHP").text();
   let myMP = $("#MP").text();
-  let myPower = $("#power").text();
-  let myDefense = $("#defense").text();
+  let myPower = $("#power").text() * 1 + $("#subPower").text() * 1;
+  let myDefense = $("#defense").text() * 1 + $("#subDefense").text() * 1;
   let myHPPer = (myHP / myMaxHP) * 100;
   let monsterHPPer = 100;
   $("#L_lv").text(monster.msg.level);
   $("#L_nickname").text(monster.msg.name);
   setTimeout(() => {
     while (monsterHP > 0 || myHP > 0) {
+      console.log(myPower);
       let attack = myPower - monster.msg.defense;
       if (attack <= 0) attack = 1;
       let damage = monster.msg.power - myDefense;

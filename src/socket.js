@@ -1,9 +1,9 @@
 const socketIo = require("socket.io");
 const { Users, Bags, Items, Equips } = require("./models");
-// const redis = require("redis");
 const auth = require("./middlewares/auth");
 const monster = require("./js/monster");
 
+// const redis = require("redis");
 // const redisClient = redis.createClient({ legacyMode: true });
 // redisClient.on("connect", () => {
 //   console.info("Redis connected!");
@@ -27,6 +27,49 @@ module.exports = (server) => {
           console.log(user.userId + "접속");
           const userInfo = async () => {
             user = await Users.findOne({ where: { userId } });
+            let userEquip = await Equips.findOne({
+              where: { nickname: user.nickname },
+            });
+            let helmet = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.helmet },
+            });
+            let armor = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.armor },
+            });
+            let weapon = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.weapon },
+            });
+            let keyRing1 = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.keyRing1 },
+            });
+            let keyRing2 = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.keyRing2 },
+            });
+            let keyRing3 = await Items.findOne({
+              attributes: ["name", "explanation"],
+              where: { name: userEquip.keyRing3 },
+            });
+            let items = [helmet, armor, weapon, keyRing1, keyRing2, keyRing3];
+            // const statType = {
+            //   공격력: "power",
+            //   방어력: "defense",
+            // };
+            let subDefense = 0,
+              subMagic = 0,
+              subPower = 0;
+            items.forEach((v) => {
+              if (v) {
+                let [stat, val] = v.explanation.split(" +");
+                if (stat === "공격력") subPower += val * 1;
+                else if (stat === "마법공격력") subMagic += val * 1;
+                else if (stat === "방어력") subDefense += val * 1;
+              }
+            });
             needExp = parseInt(user.level * (50 * (0.7 * user.level)));
             maxHP = 100 + (user.level - 1) * 50;
             maxMP = 100 + (user.level - 1) * 25;
@@ -44,6 +87,15 @@ module.exports = (server) => {
               maxHP: maxHP,
               maxMP: maxMP,
               money: user.money,
+              helmet: userEquip.helmet,
+              armor: userEquip.armor,
+              weapon: userEquip.weapon,
+              keyRing1: userEquip.keyRing1,
+              keyRing2: userEquip.keyRing2,
+              keyRing3: userEquip.keyRing3,
+              subPower: subPower,
+              subMagic: subMagic,
+              subDefense: subDefense,
             });
           };
           userInfo();
@@ -164,13 +216,11 @@ module.exports = (server) => {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
                 if (data.msg.slice(-2) === "장착") {
                   const [item] = data.msg.split("장착");
-                  console.log(item);
-                  let type = "";
                   const findItem = await Bags.findOne({
                     include: [
                       {
                         attributes: ["name", "type", "explanation"],
-                        model: Items, // join할 테이블을 고른다.
+                        model: Items,
                       },
                     ],
                     where: { nickname: data.nickname, itemName: item },
@@ -179,23 +229,66 @@ module.exports = (server) => {
                     socket.emit("error", { msg: `아이템을 다시 확인해 주세요\n입력값:${item}` });
                   let equipUser = await Equips.findOne({ where: { nickname: data.nickname } });
                   if (!equipUser) await Equips.create({ nickname: data.nickname });
-                  console.log(findItem.Item.type);
                   if (findItem.Item.type === "투구") {
+                    if (equipUser.helmet) {
+                      await Bags.increment(
+                        { quantity: 1 },
+                        { where: { itemName: equipUser.helmet } }
+                      );
+                    }
+                    await Bags.decrement(
+                      { quantity: 1 },
+                      { where: { itemName: findItem.Item.name } }
+                    );
                     await Equips.update(
                       { helmet: findItem.Item.name },
                       { where: { nickname: data.nickname } }
                     );
                   } else if (findItem.Item.type === "갑옷") {
+                    if (equipUser.armor) {
+                      await Bags.increment(
+                        { quantity: 1 },
+                        { where: { itemName: equipUser.armor } }
+                      );
+                    }
+                    await Bags.decrement(
+                      { quantity: 1 },
+                      { where: { itemName: findItem.Item.name } }
+                    );
                     await Equips.update(
                       { armor: findItem.Item.name },
                       { where: { nickname: data.nickname } }
                     );
                   } else if (findItem.Item.type === "무기") {
+                    if (equipUser.weapon) {
+                      await Bags.increment(
+                        { quantity: 1 },
+                        { where: { itemName: equipUser.weapon } }
+                      );
+                    }
+                    await Bags.decrement(
+                      { quantity: 1 },
+                      { where: { itemName: findItem.Item.name } }
+                    );
                     await Equips.update(
                       { weapon: findItem.Item.name },
                       { where: { nickname: data.nickname } }
                     );
                   } else socket.emit("error", { msg: "장착할 수 없는 아이템 입니다" });
+                  await socket.emit("error", { msg: `${item}을 장착하셨습니다` });
+                  const myBag = await Bags.findAll({
+                    attributes: ["quantity"],
+                    include: [
+                      {
+                        // join한다.
+                        attributes: ["name", "type", "explanation"],
+                        model: Items, // join할 테이블을 고른다.
+                      },
+                    ],
+                    where: { nickname: data.nickname },
+                  });
+                  await socket.emit("myBag", { item: myBag });
+                  await userInfo();
                 }
               }
               if (data.stage === "storytelling") {
