@@ -1,8 +1,3 @@
-* {
-  /* font-family: "Dongle", sans-serif; */
-  /* font-size: xx-large; */
-  color: rgb(0, 0, 0);
-}
 .body {
   background-image: url("./images/background.png");
   background-size: 100%;
@@ -221,6 +216,54 @@
   /* background-color: gray; */
 }
 
+.ganghwa_box {
+  position: absolute;
+  bottom: 13px;
+  left: 10px;
+  width: 338px;
+  height: 252px;
+  overflow: auto;
+}
+.ganghwa_list {
+  position: relative;
+  margin-top: 3px;
+  margin-left: 1px;
+  width: 315px;
+  height: 50px;
+  background-image: url("./images/ganghwa_list.png");
+  background-size: 100%;
+}
+.ganghwa_type {
+  position: relative;
+  top: 5.5px;
+  left: 4.5px;
+  width: 49px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  /* background-color: blue; */
+}
+.ganghwa_name {
+  position: relative;
+  bottom: 36px;
+  left: 57px;
+  width: 189px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  /* background-color: blue; */
+}
+.ganghwa_quantity {
+  position: relative;
+  bottom: 75px;
+  left: 250px;
+  width: 61px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  /* background-color: blue; */
+}
+
 .item_box {
   width: 650px;
   height: 70px;
@@ -287,6 +330,12 @@
   top: 15px;
   /* font-size: large; */
 }
+.help {
+  position: relative;
+  left: 230px;
+  top: 30px;
+}
+
 .get_box {
   position: relative;
   top: 20px;

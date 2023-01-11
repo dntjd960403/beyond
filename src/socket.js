@@ -241,6 +241,10 @@ module.exports = (server) => {
               }
               if (data.stage === "smithy") {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
+                if (data.msg === "강화" || data.msg === "3") socket.emit("ganghwa");
+              }
+              if (data.stage === "ganghwa") {
+                if (data.msg === "나가기" || data.msg === "0") socket.emit("smithy");
               }
               if (data.stage === "bag") {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");

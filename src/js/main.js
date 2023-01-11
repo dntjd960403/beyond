@@ -334,8 +334,22 @@ socket.on("pub", () => {
 
 socket.on("smithy", () => {
   $("#main_box div").empty();
+  $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "smithy");
-  $("#story").append(`이곳은 대장간`);
+  document.getElementById("lobby").src = `../css/images/smithy.png`;
+  socket.on("ganghwa", (ganghwa) => {
+    $("#main_box div").empty();
+    $("#story").append(`<img id="lobby">`);
+    localStorage.setItem("stage", "ganghwa");
+    document.getElementById("lobby").src = `../css/images/ganghwa.png`;
+    $("#story").append(`<div class="ganghwa_box" id="ganghwa_box"></div>`);
+    $("#ganghwa_box").append(`
+    <div class="ganghwa_list">
+      <div class="ganghwa_type">투구</div>
+      <div class="ganghwa_name">어쩌구저쩌구+1</div>
+      <div class="ganghwa_quantity">x111</div>
+    </div>`);
+  });
 });
 
 socket.on("bag", () => {
@@ -509,6 +523,7 @@ function send() {
   let msg = document.getElementById("text").value;
   let stage = localStorage.getItem("stage");
   let nickname = $("#nickname").text();
+  if (nickname === "뉴비") nickname = localStorage.getItem("nickname");
   let userId = localStorage.getItem("userId");
   let data = { msg, stage, nickname, userId };
   if (msg === "") return;
