@@ -2,7 +2,7 @@ const socketIo = require("socket.io");
 const { Users, Bags, Items, Equips } = require("./models");
 const auth = require("./middlewares/auth");
 const monster = require("./js/monster");
-const { compareSync } = require("bcrypt");
+const { Op } = require("sequelize");
 
 // const redis = require("redis");
 // const redisClient = redis.createClient({ legacyMode: true });
@@ -205,20 +205,17 @@ module.exports = (server) => {
                   socket.emit("monster", { msg: monster[number] });
                 }
                 if (data.msg === "2" || data.msg === "보스") {
-                  await socket.emit("warning", {
-                    msg: "보스입장권(1)을 소모하고 도전하시겠습니까?",
+                  const checkItem = await Bags.findOne({
+                    where: { nickname: data.nickname, itemName: "보스입장권(1)" },
                   });
-                  await socket.on("warn_response", async (response) => {
-                    if (response.msg) {
-                      const checkItem = await Bags.findOne({
-                        where: { nickname: data.nickname, itemName: "보스입장권(1)" },
-                      });
-                      if (!checkItem || checkItem.quantity < 1) {
-                        return socket.emit("error", { msg: "입장권이 부족합니다." });
-                      }
-                      socket.emit("monster", { msg: monster[7] });
-                    }
-                  });
+                  if (!checkItem || checkItem.quantity < 1) {
+                    return socket.emit("error", { msg: "입장권이 부족합니다." });
+                  }
+                  await Bags.decrement(
+                    { quantity: 1 },
+                    { where: { nickname: data.nickname, itemName: "보스입장권(1)" } }
+                  );
+                  socket.emit("monster", { msg: monster[7] });
                 }
               }
               if (data.stage === "keyRing") {
@@ -241,7 +238,23 @@ module.exports = (server) => {
               }
               if (data.stage === "smithy") {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
-                if (data.msg === "강화" || data.msg === "3") socket.emit("ganghwa");
+                if (data.msg === "강화" || data.msg === "3") {
+                  const myEquips = await Bags.findAll({
+                    attributes: ["quantity"],
+                    include: [
+                      {
+                        attributes: ["name", "type"],
+                        where: { [Op.or]: [{ type: "투구" }, { type: "갑옷" }, { type: "무기" }] },
+                        model: Items,
+                      },
+                    ],
+                    where: {
+                      nickname: data.nickname,
+                      quantity: { [Op.gt]: 0 },
+                    },
+                  });
+                  socket.emit("ganghwa", { item: myEquips });
+                }
               }
               if (data.stage === "ganghwa") {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("smithy");
@@ -261,7 +274,7 @@ module.exports = (server) => {
                   });
                   if (!findItem || findItem.quantity < 1)
                     socket.emit("error", { msg: `아이템을 다시 확인해 주세요\n입력값:${item}` });
-                  let equipUser = await Equips.findOne({ where: { nickname: data.nickname } });
+                  const equipUser = await Equips.findOne({ where: { nickname: data.nickname } });
                   if (!equipUser) await Equips.create({ nickname: data.nickname });
                   if (findItem.Item.type === "투구") {
                     if (equipUser.helmet) {
@@ -319,7 +332,7 @@ module.exports = (server) => {
                         model: Items, // join할 테이블을 고른다.
                       },
                     ],
-                    where: { nickname: data.nickname },
+                    where: { nickname: data.nickname, quantity: { [Op.gt]: 0 } },
                   });
                   await socket.emit("myBag", { item: myBag });
                   await userInfo();

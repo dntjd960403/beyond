@@ -336,6 +336,7 @@ socket.on("smithy", () => {
   $("#main_box div").empty();
   $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "smithy");
+  leftProfile("nana");
   document.getElementById("lobby").src = `../css/images/smithy.png`;
   socket.on("ganghwa", (ganghwa) => {
     $("#main_box div").empty();
@@ -343,12 +344,14 @@ socket.on("smithy", () => {
     localStorage.setItem("stage", "ganghwa");
     document.getElementById("lobby").src = `../css/images/ganghwa.png`;
     $("#story").append(`<div class="ganghwa_box" id="ganghwa_box"></div>`);
-    $("#ganghwa_box").append(`
-    <div class="ganghwa_list">
-      <div class="ganghwa_type">투구</div>
-      <div class="ganghwa_name">어쩌구저쩌구+1</div>
-      <div class="ganghwa_quantity">x111</div>
-    </div>`);
+    ganghwa.item.forEach((item) => {
+      $("#ganghwa_box").append(`
+      <div class="ganghwa_list">
+        <div class="ganghwa_type">${item.Item.type}</div>
+        <div class="ganghwa_name">${item.Item.name}</div>
+        <div class="ganghwa_quantity">x${item.quantity}</div>
+      </div>`);
+    });
   });
 });
 
@@ -512,11 +515,6 @@ socket.on("levelup", () => {
 
 socket.on("error", (error) => {
   alert(error.msg);
-});
-
-socket.on("warning", (warning) => {
-  const result = confirm(warning.msg);
-  socket.emit("warn_response", { msg: result });
 });
 
 function send() {
