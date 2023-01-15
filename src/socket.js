@@ -193,7 +193,7 @@ module.exports = (server) => {
                   socket.emit("help");
                 }
               }
-              if (data.stage === "beyond") {
+              if (data.stage === "stage1") {
                 if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
                 if (data.msg === "1" || data.msg === "입장") {
                   let number = random();
@@ -216,6 +216,30 @@ module.exports = (server) => {
                     { where: { nickname: data.nickname, itemName: "보스입장권(1)" } }
                   );
                   socket.emit("monster", { msg: monster[7] });
+                }
+                if (data.msg === "6" || data.msg === "다음") {
+                  socket.emit("stage2");
+                }
+              }
+              if (data.stage === "stage2") {
+                if (data.msg === "나가기" || data.msg === "0") socket.emit("lobby");
+                if (data.msg === "1" || data.msg === "입장") {
+                }
+                if (data.msg === "2" || data.msg === "보스") {
+                  // const checkItem = await Bags.findOne({
+                  //   where: { nickname: data.nickname, itemName: "보스입장권(2)" },
+                  // });
+                  // if (!checkItem || checkItem.quantity < 1) {
+                  //   return socket.emit("error", { msg: "입장권이 부족합니다." });
+                  // }
+                  // await Bags.decrement(
+                  //   { quantity: 1 },
+                  //   { where: { nickname: data.nickname, itemName: "보스입장권(2)" } }
+                  // );
+                  // socket.emit("monster", { msg: monster[7] });
+                }
+                if (data.msg === "4" || data.msg === "이전") {
+                  socket.emit("beyond");
                 }
               }
               if (data.stage === "keyRing") {

@@ -254,8 +254,16 @@ socket.on("lobby", (data) => {
 socket.on("beyond", () => {
   $("#main_box div").empty();
   $("#story").append(`<img id="lobby">`);
-  localStorage.setItem("stage", "beyond");
+  localStorage.setItem("stage", "stage1");
   document.getElementById("lobby").src = `../css/images/stage1.png`;
+  $("#L_nickname").text("stage1");
+  socket.on("stage2", () => {
+    $("#main_box div").empty();
+    $("#story").append(`<img id="lobby">`);
+    localStorage.setItem("stage", "stage2");
+    document.getElementById("lobby").src = `../css/images/stage2.png`;
+    $("#L_nickname").text("stage2");
+  });
 });
 
 socket.on("keyRing", () => {
@@ -272,6 +280,7 @@ socket.on("pub", () => {
   $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "pub");
   document.getElementById("lobby").src = `../css/images/hideout.png`;
+  $("#L_nickname").text("아지트");
   socket.on("minjae", () => {
     leftProfile("minjae");
     $("#main_box div").empty();
@@ -337,6 +346,7 @@ socket.on("smithy", () => {
   $("#story").append(`<img id="lobby">`);
   localStorage.setItem("stage", "smithy");
   leftProfile("nana");
+  $("#L_nickname").text("나나");
   document.getElementById("lobby").src = `../css/images/smithy.png`;
   socket.on("ganghwa", (ganghwa) => {
     $("#main_box div").empty();
